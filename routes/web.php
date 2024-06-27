@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.sign-in');
+    return view('log-in');
 });
+
+Route::get('/student-home', function () {
+    return view('Users.Student.st-homepage');
+});
+
+Route::get('/admin-home', [AdminHomeController::class, 'index'])->name('admin.index');
+Route::post('/admin-home', [AdminHomeController::class, 'store'])->name('admin.store');\
+
+Route::get('/cohort-details/{id}', [AdminHomeController::class, 'show'])->name('cohort.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
