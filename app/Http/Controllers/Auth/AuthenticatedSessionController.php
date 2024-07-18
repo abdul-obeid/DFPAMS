@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,7 +18,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        return view('log-in');
     }
 
     /**
@@ -26,13 +27,40 @@ class AuthenticatedSessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(LoginRequest $request)
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Redirect based on user role
+        return redirect()->intended($this->redirectBasedOnRole(Auth::user()));
+    }
+
+    protected function redirectBasedOnRole($user)
+    {
+        if ($user->user_type === 'coordinator') {
+            return route('admin.index');
+        }
+
+        if ($user->user_type === 'student') {
+            return route('student-homepage.index');
+        }
+
+        if ($user->user_type === 'supervisor') {
+            return route('supervisor.index');
+        }
+
+        return route('login'); // Default redirect if no role matches
     }
 
     /**

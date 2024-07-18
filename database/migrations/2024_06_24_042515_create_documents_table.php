@@ -15,6 +15,8 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('path');
+            $table->string('supervisor_feedback');
             $table->timestamps();
         });
     }

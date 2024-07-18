@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class DemoSeeder extends Seeder
 {
@@ -41,42 +42,55 @@ class DemoSeeder extends Seeder
                 'cohort_id' => $currentCohortId,
                 'specialization' => $faker->randomElement(['Software Engineering', 'Cybersecurity', 'Game Development', 'Data Science']),
             ]);
+            // Generate a random password
+            $password = $faker->password;
+
+            // Create the user and hash the password before saving
             $user = $student->user()->create([
                 'name' => $faker->name(),
                 'username' => $faker->unique()->userName(),
                 'user_type' => 'student',
                 'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'), // Set a default password
+                'password' => Hash::make($password), // Hash the password
                 'is_active' => true,
             ]);
+            Log::info('Student created', ['email' => $user->email, 'password' => $password]);
         }
 
         for ($i = 0; $i < 25; $i++) {
             $supervisor = Supervisor::create([
                 'cohort_id' => $currentCohortId,
             ]);
+            $password = $faker->password;
+
             $user = $supervisor->user()->create([
                 'name' => $faker->name(),
                 'username' => $faker->unique()->userName(),
                 'user_type' => 'supervisor',
                 'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'), // Set a default password
+                'password' => Hash::make($password), // Set a default password
                 'is_active' => true,
             ]);
+
+            Log::info('Supervisor created', ['email' => $user->email, 'password' => $password]);
         }
 
         for ($i = 0; $i < 5; $i++) {
             $coordinator = Coordinator::create([
                 'cohort_id' => $currentCohortId,
             ]);
+            $password = $faker->password;
+
             $user = $coordinator->user()->create([
                 'name' => $faker->name(),
                 'username' => $faker->unique()->userName(),
                 'user_type' => 'coordinator',
                 'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'), // Set a default password
+                'password' => Hash::make($password), // Set a default password
                 'is_active' => true,
             ]);
+
+            Log::info('Coordinator created', ['email' => $user->email, 'password' => $password]);
         }
 
 

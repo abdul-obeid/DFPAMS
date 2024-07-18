@@ -15,4 +15,19 @@ class Cohort extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function supervisors()
+    {
+        return $this->hasMany(Supervisor::class);
+    }
+
+    public function coordinators()
+    {
+        return $this->hasMany(Coordinator::class);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

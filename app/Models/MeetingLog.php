@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class MeetingLog extends Model
 {
     use HasFactory;
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class);
+    }
 }

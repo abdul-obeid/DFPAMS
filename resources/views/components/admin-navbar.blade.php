@@ -27,7 +27,7 @@
                         {{-- href="{{ route('configure.index') }} --}}
                         ">
                         <i class="material-icons opacity-6 me-2 text-md">emoji_events</i>
-                        Competitions
+                        Cohorts
                     </a>
                 </li>
 

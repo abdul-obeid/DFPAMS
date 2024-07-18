@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     use HasFactory;
+
+    public function meetingLog()
+    {
+        return $this->hasOne(MeetingLog::class);
+    }
+
+    public function document()
+    {
+        return $this->hasOne(Document::class);
+    }
 }

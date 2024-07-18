@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminHomeController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\STHomepageController;
+use App\Http\Controllers\STMeetingLogController;
+use App\Http\Controllers\STSubmissionController;
 use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +22,32 @@ use App\Http\Controllers\TestController;
 Route::get('/test', [TestController::class, 'index'])->name('test');
 /////////////////////////////////////////
 
-Route::get('/', function () {
-    return view('log-in');
-});
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login.index');
+Route::post('/', [AuthenticatedSessionController::class, 'store'])->name('login.auth');
 
-Route::get('/student-home', function () {
-    return view('Users.Student.st-homepage');
-});
 
+/////////////////////
+Route::get('/student-home', [STHomepageController::class, 'index'])->name('student-homepage.index');
+
+Route::get('/student-meeting-logs/{logNum}', [STMeetingLogController::class, 'index'])->name('student-meeting-logs.index');
+Route::post('/student-meeting-logs/{logNum}', [STMeetingLogController::class, 'store'])->name('student-meeting-logs.store');
+
+Route::get('/student-submission/{submissionType}', [STSubmissionController::class, 'index'])->name('student-submission.index');
+Route::post('/student-submission/{submissionType}', [STSubmissionController::class, 'store'])->name('student-submission.store');
+/////////////////////
+
+/////////////////////
 Route::get('/admin-home', [AdminHomeController::class, 'index'])->name('admin.index');
 Route::post('/admin-home', [AdminHomeController::class, 'store'])->name('admin.store');
 
 Route::get('/cohort-details/{id}', [AdminHomeController::class, 'show'])->name('cohort.index');
+/////////////////////
 
 
+/////////////////////
+Route::get('/supervisor-home', [AdminHomeController::class, 'index'])->name('supervisor.index');
+Route::post('/supervisor-home', [AdminHomeController::class, 'store'])->name('supervisor.store');
+/////////////////////
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

@@ -13,6 +13,12 @@ class Student extends Model
     {
         return $this->belongsTo(Cohort::class);
     }
+
+    public function project()
+    {
+        return $this->belongsToMany(Project::class, 'project_students', 'student_id', 'project_id');
+    }
+
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
