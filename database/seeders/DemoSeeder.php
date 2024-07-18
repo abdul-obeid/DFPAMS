@@ -8,8 +8,6 @@ use App\Models\Student;
 use App\Models\Supervisor;
 use App\Models\Project;
 use App\Models\Coordinator;
-use App\Models\User;
-use App\Models\UserRoles;
 use App\Models\ProjectStudents;
 use App\Models\SupervisedProjects;
 use Carbon\Carbon;
@@ -33,55 +31,60 @@ class DemoSeeder extends Seeder
             'start_date' => $cohortStartDate,
             'end_date' => Carbon::parse($cohortStartDate)->addMonths('6'),
             'faculty' => 'FCI',
-            'trimester_code' => '2401',
+            'trimester_code' => $faker->unique()->numerify('2###'),
         ]);
 
-        foreach (range(1, 100) as $index) {
-            User::create([
+        $currentCohortId = Cohort::all()->last()->id;
+        for ($i = 0; $i < 75; $i++) {
+            $student = Student::create([
+                'mmu_student_id' => $faker->unique()->numerify('12########'),
+                'cohort_id' => $currentCohortId,
+                'specialization' => $faker->randomElement(['Software Engineering', 'Cybersecurity', 'Game Development', 'Data Science']),
+            ]);
+            $user = $student->user()->create([
                 'name' => $faker->name(),
                 'username' => $faker->unique()->userName(),
+                'user_type' => 'student',
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('password'), // Set a default password
                 'is_active' => true,
             ]);
         }
 
-        $coordinators = User::take(5)->get(); // First 10 users
-        $supervisors = User::skip(5)->take(20)->get(); // Next 20 users
-        $students = User::skip(25)->take(75)->get(); // Next 20 users after the first 30
-
-
-        foreach ($students as $user) {
-            Student::create([
-                'user_id' => $user->id,
-                'mmu_student_id' => $faker->unique()->numerify('12########'),
-                'cohort_id' => Cohort::all()->last()->id,
-                'specialization' => $faker->randomElement(['Software Engineering', 'Cybersecurity', 'Game Development', 'Data Science']),
+        for ($i = 0; $i < 25; $i++) {
+            $supervisor = Supervisor::create([
+                'cohort_id' => $currentCohortId,
+            ]);
+            $user = $supervisor->user()->create([
+                'name' => $faker->name(),
+                'username' => $faker->unique()->userName(),
+                'user_type' => 'supervisor',
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make('password'), // Set a default password
+                'is_active' => true,
             ]);
         }
 
-        foreach ($coordinators as $user) {
-            Coordinator::create(
-                [
-                    'user_id' => $user->id,
-                    'cohort_id' => Cohort::all()->last()->id,
-                ]
-            );
+        for ($i = 0; $i < 5; $i++) {
+            $coordinator = Coordinator::create([
+                'cohort_id' => $currentCohortId,
+            ]);
+            $user = $coordinator->user()->create([
+                'name' => $faker->name(),
+                'username' => $faker->unique()->userName(),
+                'user_type' => 'coordinator',
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make('password'), // Set a default password
+                'is_active' => true,
+            ]);
         }
 
-        foreach ($supervisors as $user) {
-            Supervisor::create(
-                [
-                    'user_id' => $user->id,
-                    'cohort_id' => Cohort::all()->last()->id,
-                ]
-            );
-        }
 
-        // Get all users
+
+        // Get all students
         $allStudents = Student::all();
 
-        // Shuffle and select 10 random users
+        // Shuffle and select 10 random students
         $groupProjStudents = $allStudents->shuffle()->take(10);
 
         // Get the remaining users

@@ -13,4 +13,8 @@ class Student extends Model
     {
         return $this->belongsTo(Cohort::class);
     }
+    public function user()
+    {
+        return $this->morphOne(User::class, 'userable');
+    }
 }

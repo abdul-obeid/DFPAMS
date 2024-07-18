@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminHomeController;
-
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,10 @@ use App\Http\Controllers\AdminHomeController;
 |
 */
 
+//Test route
+Route::get('/test', [TestController::class, 'index'])->name('test');
+/////////////////////////////////////////
+
 Route::get('/', function () {
     return view('log-in');
 });
@@ -23,7 +27,7 @@ Route::get('/student-home', function () {
 });
 
 Route::get('/admin-home', [AdminHomeController::class, 'index'])->name('admin.index');
-Route::post('/admin-home', [AdminHomeController::class, 'store'])->name('admin.store');\
+Route::post('/admin-home', [AdminHomeController::class, 'store'])->name('admin.store');
 
 Route::get('/cohort-details/{id}', [AdminHomeController::class, 'show'])->name('cohort.index');
 

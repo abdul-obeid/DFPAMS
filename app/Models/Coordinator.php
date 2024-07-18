@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Coordinator extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'userable');
+    }
 }

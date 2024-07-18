@@ -18,7 +18,6 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('mmu_student_id');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->string('specialization');
             $table->timestamps();
