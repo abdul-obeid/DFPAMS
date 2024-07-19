@@ -16,7 +16,7 @@ class Project extends Model
 
     public function supervisor()
     {
-        return $this->belongsTo(Supervisor::class, 'supervised_projects', 'project_id', 'supervisor_id');
+        return $this->belongsToMany(Supervisor::class, 'supervised_projects', 'project_id', 'supervisor_id');
     }
 
     public function meetingLogs()

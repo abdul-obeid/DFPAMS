@@ -42,6 +42,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        session([
+            'user' => $user,
+            'user_type' => $user->user_type,
+            'userable' => $user->userable,
+        ]);
+
         // Redirect based on user role
         return redirect()->intended($this->redirectBasedOnRole(Auth::user()));
     }
@@ -60,7 +68,7 @@ class AuthenticatedSessionController extends Controller
             return route('supervisor.index');
         }
 
-        return route('login'); // Default redirect if no role matches
+        return route('login.index'); // Default redirect if no role matches
     }
 
     /**
