@@ -13,9 +13,4 @@ class MeetingLog extends Model
     {
         return $this->belongsTo(Project::class);
     }
-
-    public function feedback()
-    {
-        return $this->belongsTo(Feedback::class);
-    }
 }

@@ -28,4 +28,9 @@ class Project extends Model
     {
         return $this->belongsTo(Cohort::class);
     }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
 }

@@ -25,7 +25,9 @@
                     <div class="card-body">
                         <h4 class="card-title">Meeting Log {{ $i }}</h4>
                         <p>Status: {{ $status }}</p>
-                        <a href="#" class="btn btn-info">View Details</a>
+                        @if ($submitted)
+                            <a href="{{route('supervisor-meeting-log.index', ['projId' => $project->id, 'logNum' => $i])}}" class="btn btn-info">View submission</a>
+                        @endif
                     </div>
                 </div>
             </div>

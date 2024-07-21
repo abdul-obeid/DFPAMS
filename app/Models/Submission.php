@@ -9,14 +9,8 @@ class Submission extends Model
 {
     use HasFactory;
 
-    public function document()
+    public function project()
     {
-        return $this->hasOne(Document::class);
-    }
-
-    public function event()
-    {
-
-        return $this->hasOne(Event::class);
+        return $this->belongsTo(Project::class);
     }
 }

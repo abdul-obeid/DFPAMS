@@ -8,6 +8,7 @@
         </div>
             <form action="{{ route('student-meeting-logs.store', $logNum) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="project_id" value="{{ $project->id }}">
                 <div class="form-group text-start">
                     <label for="document">Upload Document:</label>
                     <input type="file" class="form-control-file" id="document" name="document" required>

@@ -18,9 +18,7 @@ class CreateMeetingLogsTable extends Migration
     {
         Schema::create('meeting_logs', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('due_date');
             $table->foreignIdFor(Project::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Document::class)->constrained()->cascadeOnDelete();
             $table->integer('log_num');
             $table->string('submission_name');
             $table->string('submission_path');

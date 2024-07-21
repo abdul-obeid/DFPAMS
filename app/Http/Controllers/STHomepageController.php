@@ -3,21 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Project;
-use App\Models\Student;
-use App\Models\ProjectStudents;
-use App\Models\MeetingLog;
-use App\Models\Submission;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class STHomepageController extends Controller
 {
     public function index(Request $request)
     {
-        $studentId = 53;
-        $student = User::find(53)->userable();
-        return view('Users.Student.st-homepage');
+        $user = Auth::user();
+        $project = $user->userable->project()->first();
+        $supervisor = $project->supervisor()->first();
+        return view('Users.Student.st-homepage')->with(compact(['user', 'project', 'supervisor']));
     }
 }

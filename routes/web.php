@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SPHomepageController;
 use App\Http\Controllers\SPProjectDetailsController;
+use App\Http\Controllers\SPMeetingLogController;
 use App\Http\Controllers\STHomepageController;
 use App\Http\Controllers\STMeetingLogController;
 use App\Http\Controllers\STSubmissionController;
@@ -55,6 +56,10 @@ Route::get('/supervisor-home', [SPHomepageController::class, 'index'])->name('su
 Route::post('/supervisor-home', [SPHomepageController::class, 'store'])->name('supervisor.store');
 
 Route::get('/project-details/{projectId}', [SPProjectDetailsController::class, 'index'])->name('project-details.index');
+
+Route::get('/supervisor/meeting-log/{projId}/{logNum}', [SPMeetingLogController::class, 'index'])->name('supervisor-meeting-log.index');
+Route::post('/supervisor/meeting-log/{projId}/{logNum}/feedback', [SPMeetingLogController::class, 'submitFeedback'])->name('supervisor-meeting-log.feedback');
+Route::get('/supervisor/meeting-log/{projId}/{logNum}/download', [SPMeetingLogController::class, 'download'])->name('supervisor-meeting-log.download');
 
 /////////////////////
 Route::get('/dashboard', function () {
