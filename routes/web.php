@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SPHomepageController;
 use App\Http\Controllers\SPProjectDetailsController;
 use App\Http\Controllers\SPMeetingLogController;
+use App\Http\Controllers\SPSubmissionsController;
 use App\Http\Controllers\STHomepageController;
 use App\Http\Controllers\STMeetingLogController;
 use App\Http\Controllers\STSubmissionController;
@@ -29,6 +30,7 @@ Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login.index');
 Route::post('/', [AuthenticatedSessionController::class, 'store'])->name('login.auth');
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 /////////////////////
 //Student
@@ -61,6 +63,9 @@ Route::get('/supervisor/meeting-log/{projId}/{logNum}', [SPMeetingLogController:
 Route::post('/supervisor/meeting-log/{projId}/{logNum}/feedback', [SPMeetingLogController::class, 'submitFeedback'])->name('supervisor-meeting-log.feedback');
 Route::get('/supervisor/meeting-log/{projId}/{logNum}/download', [SPMeetingLogController::class, 'download'])->name('supervisor-meeting-log.download');
 
+Route::get('/submissions/{projectId}/{submissionType}', [SPSubmissionsController::class, 'show'])->name('submissions.show');
+Route::post('/submissions/{submission}/feedback', [SPSubmissionsController::class, 'submitFeedback'])->name('submissions.feedback');
+Route::get('/submissions/{submission}/download', [SPSubmissionsController::class, 'download'])->name('submissions.download');
 /////////////////////
 Route::get('/dashboard', function () {
     return view('dashboard');

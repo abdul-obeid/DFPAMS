@@ -56,9 +56,14 @@
                             <input type="date" class="form-control flatpickr" id="end_date" name="end_date" required>
                         </div>
                         <div class="mb-3">
+                            <label for="trimester_code" class="form-label">Trimester code:</label>
+                            <input type="text" class="form-control" id="trimester_code" name="trimester_code" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="student_details" class="form-label">Student & Supervisor Details (CSV)</label>
                             <input type="file" class="form-control" id="student_details" name="student_details" required>
                         </div>
+                       
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

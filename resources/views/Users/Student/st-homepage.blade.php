@@ -7,8 +7,8 @@
     <div class="row">
         <!-- Timeline Column -->
         <div class="col-md-8">
-            <h1 class="my-4 display-5">Student Submissions Timeline</h1>
-            <h2 class='display-6'>Meeting logs submitted: 0/6</h2>
+            <h1 class="display-5">{{$project->title}}</h1>
+            <h2 class='display-6'>Meeting logs submitted: {{$project->meetingLogs->count()}}/6</h2>
 
             <div class="wrapper">
                 <div class="center-line">
@@ -24,8 +24,8 @@
                             <br>
                             <span>Due: 1st Jan 2021</span>
                         </div>
-                        <p>Status: Pending</p>
-                        <p>Feedback: Lorem ipsum</p>
+                        <p>Status: {{!empty($project->meetingLogs()->where('log_num', $i)->first())?  'Submitted' :  'Pending'}}</p>
+                        <p>Feedback: {{optional($project->meetingLogs()->where('log_num', $i)->first())->feedback ?? 'None.'}}</p>
                         <div class="bottom">
                             <a href="{{ route('student-meeting-logs.index', $i) }}">View details</a>
                         </div>
@@ -39,9 +39,9 @@
                         <div class="details">
                             <span class="title">Report submission</span>
                             <span>2nd Jan 2021</span>
-                            <p>Status: Pending</p>
+                            <p>{{!empty(($project->submissions()->where('type', 'Report')->first()))?'Submitted':'Pending'}}</p>
                         </div>
-                        <p>Lorem ipsum dolor sit ameters consectetur adipisicing elit. Sed qui veroes praesentium maiores, sint eos vero sapiente voluptas debitis dicta dolore.</p>
+                        <p>Feedback: {{optional($project->submissions()->where('type', 'Report')->first())->feedback ?? 'None.'}}</p>
                         <div class="bottom">
                             <a href="{{ route('student-submission.index', 'Report') }}">Read more</a>
                         </div>
@@ -53,9 +53,9 @@
                         <div class="details">
                             <span class="title">Video demo</span>
                             <span>3rd Jan 2021</span>
-                            <p>Status: Pending</p>
+                            <p>{{!empty(($project->submissions()->where('type', 'Demo')->first()))?'Submitted':'Pending'}}</p>
                         </div>
-                        <p>Lorem ipsum dolor sit ameters consectetur adipisicing elit. Sed qui veroes praesentium maiores, sint eos vero sapiente voluptas debitis dicta dolore.</p>
+                        <p>Feedback: {{optional($project->submissions()->where('type', 'Demo')->first())->feedback ?? 'None.'}}</p>
                         <div class="bottom">
                             <a href="{{ route('student-submission.index', 'Demo') }}">Read more</a>
                         </div>
@@ -67,9 +67,9 @@
                         <div class="details">
                             <span class="title">Poster submission</span>
                             <span>4th Jan 2021</span>
-                            <p>Status: Pending</p>
+                            <p>{{!empty(($project->submissions()->where('type', 'Poster')->first()))?'Submitted':'Pending'}}</p>
                         </div>
-                        <p>Lorem ipsum dolor sit ameters consectetur adipisicing elit. Sed qui veroes praesentium maiores, sint eos vero sapiente voluptas debitis dicta dolore.</p>
+                        <p>Feedback: {{optional($project->submissions()->where('type', 'Poster')->first())->feedback ?? 'None.'}}</p>
                         <div class="bottom">
                             <a href="{{ route('student-submission.index', 'Poster') }}">Read more</a>
                         </div>

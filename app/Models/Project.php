@@ -9,6 +9,15 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_mmu_id',
+        'app_or_research',
+        'title',
+        'specialization',
+        'is_group_project',
+        'cohort_id',
+    ];
+
     public function students()
     {
         return $this->belongsToMany(Student::class, 'project_students', 'project_id', 'student_id');

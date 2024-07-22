@@ -17,7 +17,7 @@ class CreateCoordinatorsTable extends Migration
     {
         Schema::create('coordinators', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Cohort::class)->constrained();
+            // $table->foreignIdFor(Cohort::class)->constrained();
             $table->timestamps();
         });
     }

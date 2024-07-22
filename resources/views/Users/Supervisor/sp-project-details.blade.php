@@ -38,33 +38,42 @@
     <br>
     <h2>Deliverables Status</h2>
     <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 report">
-                <div class="card-body">
-                    <h4 class="card-title">Final Report</h4>
-                    <p>Status: Pending</p>
-                    <a href="#" class="btn btn-info">View Details</a>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 report">
+                    <div class="card-body">
+                        <h4 class="card-title">Final Report</h4>
+                        <p>Status: {{ $project->submissions->where('type', 'Report')->first() ? 'Submitted' : 'Pending' }}</p>
+                        <a href="{{ route('submissions.show', ['projectId' => $project->id, 'submissionType' => 'Report']) }}" class="btn btn-info">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 demo">
+                    <div class="card-body">
+                        <h4 class="card-title">Demo Video</h4>
+                        <p>Status: {{ $project->submissions->where('type', 'Demo')->first() ? 'Submitted' : 'Pending' }}</p>
+                        <a href="{{ route('submissions.show', ['projectId' => $project->id, 'submissionType' => 'Demo']) }}" class="btn btn-info">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 poster">
+                    <div class="card-body">
+                        <h4 class="card-title">Poster</h4>
+                        <p>Status: {{ $project->submissions->where('type', 'Poster')->first() ? 'Submitted' : 'Pending' }}</p>
+                        <a href="{{ route('submissions.show', ['projectId' => $project->id, 'submissionType' => 'Poster']) }}" class="btn btn-info">
+                            View Details
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 demo">
-                <div class="card-body">
-                    <h4 class="card-title">Demo Video</h4>
-                    <p>Status: Pending</p>
-                    <a href="#" class="btn btn-info">View Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 poster">
-                <div class="card-body">
-                    <h4 class="card-title">Poster</h4>
-                    <p>Status: Pending</p>
-                    <a href="#" class="btn btn-info">View Details</a>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 @endsection

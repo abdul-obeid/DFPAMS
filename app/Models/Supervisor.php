@@ -9,6 +9,10 @@ class Supervisor extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'cohort_id',
+    ];
+
     public function user()
     {
         return $this->morphOne(User::class, 'userable');

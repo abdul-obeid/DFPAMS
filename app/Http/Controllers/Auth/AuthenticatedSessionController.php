@@ -56,15 +56,15 @@ class AuthenticatedSessionController extends Controller
 
     protected function redirectBasedOnRole($user)
     {
-        if ($user->user_type === 'coordinator') {
+        if ($user->user_type == 'coordinator') {
             return route('admin.index');
         }
 
-        if ($user->user_type === 'student') {
+        if ($user->user_type == 'Student') {
             return route('student-homepage.index');
         }
 
-        if ($user->user_type === 'supervisor') {
+        if ($user->user_type == 'Supervisor') {
             return route('supervisor.index');
         }
 

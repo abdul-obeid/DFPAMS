@@ -9,6 +9,12 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'mmu_student_id',
+        'cohort_id',
+        'specialization',
+    ];
+
     public function cohort()
     {
         return $this->belongsTo(Cohort::class);
