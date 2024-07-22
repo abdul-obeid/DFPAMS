@@ -16,6 +16,8 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->string('project_mmu_id');
+            $table->string('app_or_research');
             $table->string('title');
             $table->string('specialization');
             $table->boolean('is_group_project');

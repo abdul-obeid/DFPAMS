@@ -21,7 +21,7 @@
                 <td>{{ $cohort->trimester_code }}</td>
                 <td>{{ $cohort->start_date }}</td>
                 <td>{{ $cohort->end_date }}</td>
-                <td>{{ $cohort->students_count }}</td>
+                <td>{{ $cohort->students()->count()}}</td>
                 <td>
                     <a href="{{ route('cohort.index', $cohort->id) }}" class="btn btn-primary">View Details</a>
                 </td>

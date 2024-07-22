@@ -47,8 +47,7 @@ class DemoSeeder extends Seeder
 
             // Create the user and hash the password before saving
             $user = $student->user()->create([
-                'name' => $faker->name(),
-                'username' => $faker->unique()->userName(),
+                'name' => $faker->unique()->name(),
                 'user_type' => 'student',
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make($password), // Hash the password
@@ -64,8 +63,7 @@ class DemoSeeder extends Seeder
             $password = $faker->password;
 
             $user = $supervisor->user()->create([
-                'name' => $faker->name(),
-                'username' => $faker->unique()->userName(),
+                'name' => $faker->unique()->name(),
                 'user_type' => 'supervisor',
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make($password), // Set a default password
@@ -82,8 +80,7 @@ class DemoSeeder extends Seeder
             $password = $faker->password;
 
             $user = $coordinator->user()->create([
-                'name' => $faker->name(),
-                'username' => $faker->unique()->userName(),
+                'name' => $faker->unique()->name(),
                 'user_type' => 'coordinator',
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make($password), // Set a default password
@@ -110,8 +107,10 @@ class DemoSeeder extends Seeder
             $proj = Project::create(
                 [
                     'title' => $faker->sentence(),
+                    'project_mmu_id' => $faker->unique()->numerify('####'),
                     'specialization' => $student->specialization,
                     'is_group_project' => false,
+                    'app_or_research' => $faker->randomElement(['Application-based', 'Research-based']),
                     'cohort_id' => Cohort::all()->last()->id,
                 ]
             );
@@ -130,8 +129,10 @@ class DemoSeeder extends Seeder
                 // Create a project for each pair of students
                 $project = Project::create([
                     'title' => $faker->sentence(1),
+                    'project_mmu_id' => $faker->unique()->numerify('####'),
                     'specialization' => $groupProjStudents[$i]->specialization,
                     'is_group_project' => true,
+                    'app_or_research' => $faker->randomElement(['Application-based', 'Research-based']),
                     'cohort_id' => Cohort::all()->last()->id,
                 ]);
 
